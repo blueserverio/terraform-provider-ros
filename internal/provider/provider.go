@@ -32,6 +32,34 @@ func New(version string) func() *schema.Provider {
 			ResourcesMap: map[string]*schema.Resource{
 				"ros_system_identity": resourceSystemIdentity(),
 			},
+			Schema: map[string]*schema.Schema{
+				"hosturl": {
+					Type:        schema.TypeString,
+					Required:    true,
+					DefaultFunc: schema.EnvDefaultFunc("ROS_HOSTURL", nil),
+					Description: "URL of the ROS router. Include the scheme (http/https)",
+				},
+				"username": {
+					Type:        schema.TypeString,
+					Required:    true,
+					DefaultFunc: schema.EnvDefaultFunc("ROS_USERNAME", nil),
+					Description: "Username for the ROS user",
+				},
+				"password": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					DefaultFunc: schema.EnvDefaultFunc("ROS_PASSWORD", nil),
+					Description: "Password for the ROS user",
+					Sensitive:   true,
+				},
+				"insecure": {
+					Type:        schema.TypeBool,
+					Optional:    true,
+					Default:     false,
+					DefaultFunc: schema.EnvDefaultFunc("ROS_INSECURE", false),
+					Description: "Whether to verify the SSL certificate or not",
+				},
+			},
 		}
 
 		p.ConfigureContextFunc = configure(version, p)

@@ -4,8 +4,11 @@ import (
 	"flag"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/hashicorp/terraform-provider-scaffolding/internal/provider"
+	ros "github.com/hashicorp/terraform-provider-scaffolding/internal/provider"
 )
+
+// Provider documentation generation.
+//go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-name ros
 
 var (
 	version string = "dev"

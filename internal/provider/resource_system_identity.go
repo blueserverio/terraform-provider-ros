@@ -11,7 +11,7 @@ import (
 func resourceSystemIdentity() *schema.Resource {
 	return &schema.Resource{
 		// This description is used by the documentation generator and the language server.
-		Description: "Setting the System's Identity provides a unique identifying name for when the system identifies itself to other routers in the network and when accessing services such as DHCP, Neighbour Discovery, and default wireless SSID. The default system Identity is set to 'MikroTik'.		.",
+		Description: "Setting the System's Identity provides a unique identifying name for when the system identifies itself to other routers in the network and when accessing services such as DHCP, Neighbour Discovery, and default wireless SSID. The default system Identity is set to 'MikroTik'.",
 
 		CreateContext: resourceSystemIdentityCreate,
 		ReadContext:   resourceSystemIdentityRead,
@@ -20,9 +20,9 @@ func resourceSystemIdentity() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Description: 	"The display name for the device.",
-				Type:        	schema.TypeString,
-				Required:		true,
+				Description: "The display name for the device.",
+				Type:        schema.TypeString,
+				Required:    true,
 			},
 		},
 	}
@@ -30,7 +30,7 @@ func resourceSystemIdentity() *schema.Resource {
 
 func resourceSystemIdentityCreate(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	//client := meta.(*)
-	
+
 	idFromAPI := "my-id"
 	d.SetId(idFromAPI)
 
