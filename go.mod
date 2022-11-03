@@ -1,4 +1,4 @@
-module github.com/hashicorp/terraform-provider-scaffolding
+module ros
 
 go 1.18
 
