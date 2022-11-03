@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	ros "github.com/blueserverio/terraform-provider-ros/internal/provider"
+	ros "github.com/blueserverio/ros/internal/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 )
 
@@ -24,7 +24,7 @@ func main() {
 		Debug: debugMode,
 
 		// TODO: update this string with the full name of your provider as used in your configs
-		ProviderAddr: "registry.terraform.io/blueserverio/ros",
+		ProviderAddr: "registry.terraform.io/hashicorp/scaffolding",
 
 		ProviderFunc: ros.New(version),
 	}

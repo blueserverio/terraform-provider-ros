@@ -1,4 +1,4 @@
-module ros
+module github.com/blueserverio/ros
 
 go 1.18
 
