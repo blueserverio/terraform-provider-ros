@@ -3,24 +3,13 @@ package ros
 import (
 	"context"
 
+	"github.com/blueserverio/ros/client"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 func init() {
-	// Set descriptions to support markdown syntax, this will be used in document generation
-	// and the language server.
 	schema.DescriptionKind = schema.StringMarkdown
-
-	// Customize the content of descriptions when output. For example you can add defaults on
-	// to the exported descriptions if present.
-	// schema.SchemaDescriptionBuilder = func(s *schema.Schema) string {
-	// 	desc := s.Description
-	// 	if s.Default != nil {
-	// 		desc += fmt.Sprintf(" Defaults to `%v`.", s.Default)
-	// 	}
-	// 	return strings.TrimSpace(desc)
-	// }
 }
 
 func New(version string) func() *schema.Provider {
@@ -68,19 +57,15 @@ func New(version string) func() *schema.Provider {
 	}
 }
 
-type apiClient struct {
-	hostUrl string
-	// Add whatever fields, client or connection info, etc. here
-	// you would need to setup to communicate with the upstream
-	// API.
-}
-
 func configure(version string, p *schema.Provider) func(context.Context, *schema.ResourceData) (any, diag.Diagnostics) {
-	return func(context.Context, *schema.ResourceData) (any, diag.Diagnostics) {
+	return func(ctx context.Context, d *schema.ResourceData) (any, diag.Diagnostics) {
 		// Setup a User-Agent for your API client (replace the provider name for yours):
-		// userAgent := p.UserAgent("terraform-provider-scaffolding", version)
-		// TODO: myClient.UserAgent = userAgent
-
-		return &apiClient{}, nil
+		userAgent := p.UserAgent("terraform-provider-ros", version)
+		hostUrl := d.Get("hosturl").(string)
+		username := d.Get("username").(string)
+		password := d.Get("password").(string)
+		insecure := d.Get("insecure").(bool)
+		return client.NewClient(hostUrl, username, password, insecure, userAgent), nil
+		//return &apiClient{}, nil
 	}
 }
